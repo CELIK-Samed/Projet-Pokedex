@@ -22,7 +22,7 @@ Permet la recherche, l’affichage et la navigation des Pokémon via une API per
 
 1. Cloner le repo :  
 ```bash
-git clone https://github.com/TONPSEUDO/pokedex.git
+git clone https://github.com/CELIK-Samed/Projet-Pokedex.git
 cd pokedex # Pour se placer dans le projet
 ```
 

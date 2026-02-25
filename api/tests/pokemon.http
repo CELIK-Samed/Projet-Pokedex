@@ -1,0 +1,42 @@
+@baseUrl = http://localhost:3000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzEzMjUwMzUsImV4cCI6MTc3MTQxMTQzNX0.Atg-nx5tO1waoz-aqfQQab4SARpZ888WDeJzyvgXgCU
+
+
+### Get all pokemons
+GET {{baseUrl}}/api/pokemons
+
+### Get pokemon by id
+GET {{baseUrl}}/api/pokemons/2
+
+### Add a new pokemon
+POST {{baseUrl}}/api/pokemons
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Bulbasaur",
+  "type": "Grass/Poison",
+  "level": 5
+}
+
+
+### Get pokemon by id
+GET {{baseUrl}}/api/pokemons/1
+
+### 404 Not Found
+GET {{baseUrl}}/api/pokemons/999
+
+### Update pokemons by ID
+PATCH {{baseUrl}}/api/pokemons/5
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Ivysaur",
+  "type": "Grass/Poison",
+  "level": 16
+}
+
+### Delete pokemon by id
+DELETE {{baseUrl}}/api/pokemons/2
+Authorization: Bearer {{token}}

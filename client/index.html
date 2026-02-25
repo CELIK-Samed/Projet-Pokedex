@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokédex</title>
+  <link rel="stylesheet" href="./public/style.css" />
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">POKÉ<span>DEX</span></div>
+    <nav id="main-nav" style="display:none">
+      <button class="nav-btn active" onclick="showPage('pokemons')">Pokémon</button>
+      <button class="nav-btn" onclick="showPage('types')">Types</button>
+      <button class="nav-btn" onclick="showPage('equipes')">Équipes</button>
+    </nav>
+    <div class="user-section">
+      <span id="username-display"></span>
+      <button class="btn btn-primary" id="logout-btn" style="display:none" onclick="logout()">Déconnexion</button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- AUTH PAGE -->
+    <div class="page active" id="page-auth">
+      <div class="auth-container">
+        <!-- LOGIN FORM -->
+        <div id="login-form">
+          <div class="auth-card">
+            <h2 class="auth-title">CONNEXION</h2>
+            <div class="auth-error" id="login-error"></div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" id="login-email" placeholder="dresseur@pokemon.com" />
+            </div>
+            <div class="form-group">
+              <label>Mot de passe</label>
+              <input type="password" id="login-password" placeholder="••••••••"
+                onkeydown="if(event.key==='Enter')doLogin()" />
+            </div>
+            <button class="btn btn-primary" style="width:100%;padding:0.8rem" onclick="doLogin()">SE CONNECTER</button>
+            <div class="auth-switch">
+              Pas encore inscrit ? <a onclick="toggleAuth()">S'inscrire</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- REGISTER FORM -->
+        <div id="register-form" style="display:none">
+          <div class="auth-card">
+            <h2 class="auth-title">INSCRIPTION</h2>
+            <div class="auth-error" id="register-error"></div>
+            <div class="form-group">
+              <label>Nom de dresseur</label>
+              <input type="text" id="reg-username" placeholder="Sacha" />
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" id="reg-email" placeholder="sacha@pokemon.com" />
+            </div>
+            <div class="form-group">
+              <label>Mot de passe</label>
+              <input type="password" id="reg-password" placeholder="Min. 8 caractères" />
+            </div>
+            <div class="form-group">
+              <label>Confirmer le mot de passe</label>
+              <input type="password" id="reg-confirm" placeholder="••••••••"
+                onkeydown="if(event.key==='Enter')doRegister()" />
+            </div>
+            <button class="btn btn-secondary" style="width:100%;padding:0.8rem"
+              onclick="doRegister()">S'INSCRIRE</button>
+            <div class="auth-switch">
+              Déjà inscrit ? <a onclick="toggleAuth()">Se connecter</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POKEMON PAGE -->
+    <div class="page" id="page-pokemons">
+      <div class="page-header">
+        <h1 class="page-title">POKÉMON <span class="count-badge" id="pokemon-count">0</span></h1>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Rechercher un Pokémon..." oninput="filterPokemons()" />
+      </div>
+      <div class="pokemon-grid" id="pokemon-grid">
+        <div class="loading">Chargement</div>
+      </div>
+    </div>
+
+    <!-- TYPES PAGE -->
+    <div class="page" id="page-types">
+      <div class="page-header">
+        <h1 class="page-title">TYPES</h1>
+      </div>
+      <div class="types-grid" id="types-grid">
+        <div class="loading">Chargement</div>
+      </div>
+    </div>
+
+    <!-- EQUIPES PAGE -->
+    <div class="page" id="page-equipes">
+      <div class="page-header">
+        <h1 class="page-title">ÉQUIPES</h1>
+      </div>
+
+      <!-- CREATE FORM -->
+      <div class="create-equipe-form">
+        <div class="form-row">
+          <div class="form-group" style="margin:0">
+            <label>Nom de l'équipe</label>
+            <input type="text" id="new-equipe-name" placeholder="Ex: Team Rocket" />
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Description</label>
+            <input type="text" id="new-equipe-desc" placeholder="Description..." />
+          </div>
+          <button class="btn btn-secondary" onclick="createEquipe()" style="height:42px;margin-top:auto">CRÉER</button>
+        </div>
+      </div>
+
+      <div class="equipes-grid" id="equipes-grid">
+        <div class="loading">Chargement</div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- POKEMON MODAL -->
+  <div class="modal-overlay" id="pokemon-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title" id="modal-pokemon-number">#000</span>
+        <button class="modal-close" onclick="closeModal('pokemon-modal')">×</button>
+      </div>
+      <div class="modal-body" id="modal-pokemon-body"></div>
+    </div>
+  </div>
+
+  <!-- TYPE MODAL -->
+  <div class="modal-overlay" id="type-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title" id="modal-type-title">TYPE</span>
+        <button class="modal-close" onclick="closeModal('type-modal')">×</button>
+      </div>
+      <div class="modal-body" id="modal-type-body"></div>
+    </div>
+  </div>
+
+  <!-- ADD POKEMON TO TEAM MODAL -->
+  <div class="modal-overlay" id="add-pokemon-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">AJOUTER UN POKÉMON</span>
+        <button class="modal-close" onclick="closeModal('add-pokemon-modal')">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Choisir un Pokémon</label>
+          <select id="pokemon-select"></select>
+        </div>
+        <button class="btn btn-secondary" style="width:100%;padding:0.8rem;margin-top:1rem"
+          onclick="confirmAddPokemon()">AJOUTER</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+@baseUrl = http://localhost:3000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzEzMjUwMzUsImV4cCI6MTc3MTQxMTQzNX0.Atg-nx5tO1waoz-aqfQQab4SARpZ888WDeJzyvgXgCU
+
+
+### Get all types
+GET {{baseUrl}}/api/types
+
+### Get type by id
+GET {{baseUrl}}/api/types/3
+
+### 404 Not Found
+GET {{baseUrl}}/api/types/999
+
+### Add a new type
+POST {{baseUrl}}/api/types
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "blalba",
+  "color": "FF69B4"
+}
+
+
+### Update type by ID
+PATCH {{baseUrl}}/api/types/2
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Dragon",
+  "color": "FFA500"
+}
+
+### Delete type by id
+DELETE {{baseUrl}}/api/types/20
+Authorization: Bearer {{token}}
+

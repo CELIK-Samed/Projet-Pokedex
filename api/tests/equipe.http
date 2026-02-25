@@ -1,0 +1,48 @@
+@baseUrl = http://localhost:3000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzEzMjUwMzUsImV4cCI6MTc3MTQxMTQzNX0.Atg-nx5tO1waoz-aqfQQab4SARpZ888WDeJzyvgXgCU
+
+### Get all equipes
+GET {{baseUrl}}/api/equipes
+
+### Voir les Pokémon dans l'équipe 1
+GET {{baseUrl}}/api/equipes/1
+
+
+### Get equipe by id
+GET {{baseUrl}}/api/equipes/2
+
+### Add a new equipe
+POST {{baseUrl}}/api/equipes
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "O'Clock",
+  "description": "L'école de Développeur"
+}
+
+
+### Get equipe by id
+GET {{baseUrl}}/api/equipes/1
+
+### 404 Not Found
+GET {{baseUrl}}/api/equipes/999
+
+### Update equipes by ID
+PATCH {{baseUrl}}/api/equipes/2
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Ivysaur",
+  "description": "Un Pokémon de type Plante/Poison"
+}
+
+### Ajouter Pikachu (id 25) dans l'équipe 1
+POST {{baseUrl}}/api/equipes/1/pokemons/25
+Authorization: Bearer {{token}}
+
+
+### Delete equipe by id
+DELETE {{baseUrl}}/api/equipes/2
+Authorization: Bearer {{token}}

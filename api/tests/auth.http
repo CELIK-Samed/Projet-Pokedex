@@ -1,0 +1,30 @@
+@baseUrl = http://localhost:3000
+
+
+### 1. S'inscrire
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "Toto",
+  "email": "toto@pokemon.com",
+  "password": "toto123456789",
+  "confirmPassword": "toto123456789"
+}
+
+### 2. Se connecter → Récupérer le token
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "toto@pokemon.com",
+  "password": "toto123456789"
+}
+
+### 3. Copier le token et tester une route protégée
+GET http://localhost:3000/api/pokemons
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzEzMjUwMzUsImV4cCI6MTc3MTQxMTQzNX0.Atg-nx5tO1waoz-aqfQQab4SARpZ888WDeJzyvgXgCU
+
+### 4. Tester /me
+GET http://localhost:3000/api/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzEzMjUwMzUsImV4cCI6MTc3MTQxMTQzNX0.Atg-nx5tO1waoz-aqfQQab4SARpZ888WDeJzyvgXgCU
